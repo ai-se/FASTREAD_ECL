@@ -25,14 +25,15 @@ flds0 := DATASET([{1,2,149},{1,3,0},{2,1,12},{2,3,1},{3,1,21},{3,2,12},{3,3,1},{
               ,ML.Types.NumericField);
 flds := ML.Discretize.ByRounding(flds0(Number=3));
 
-flds1 := DATASET([{1,2,100},{2,1,11},{2,2,13},{3,1,0},{3,2,124},{4,1,-100}]
+flds1 := DATASET([{1,2,-12},{2,1,11},{2,2,13},{3,1,0},{3,2,124},{4,1,-100}]
               ,ML.Types.NumericField);
 
 OUTPUT(flds0);
+OUTPUT(flds);
 
 model := ML.Classify.SVM();
 nl := model.LearnC(flds0(Number<3),flds);
 rs := model.ClassifyC(flds1,nl);
-//justten := TOPN(rs,10,IF(d[0].sex=0, -conf, conf));
-OUTPUT(rs,,ALL);
+justten := TOPN(rs,10,-conf);
+OUTPUT(justten,,ALL);
 //OUTPUT(justten,,ALL);

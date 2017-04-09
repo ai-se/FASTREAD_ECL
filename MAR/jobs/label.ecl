@@ -11,3 +11,6 @@ label := '': STORED('label', FORMAT(SEQUENCE(3)));
 corpus:= MAR.Body.loadData(file);
 corpusnew:=MAR.Body.labelData(corpus,id,label);
 MAR.Body.saveData(corpusnew,file);
+
+stat:=MAR.Body.get_stat(corpusnew);
+OUTPUT(stat,NAMED('stat'));
