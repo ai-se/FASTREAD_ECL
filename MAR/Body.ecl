@@ -1,15 +1,16 @@
 ﻿IMPORT MAR.Types;
 IMPORT STD;
 IMPORT ML;
+IMPORT ML.Docs AS Docs;
 EXPORT Body := MODULE
 
 
 	
-	EXPORT saveData(DATASET(Types.MarRecord) corpus, STRING path):= OUTPUT(corpus, ,'~work::'+path+'.tmp',OVERWRITE);
+	EXPORT saveData(DATASET(Types.MarRecord) corpus, STRING path):= OUTPUT(corpus, ,'~fastread::'+path+'.tmp',OVERWRITE);
 	
-	EXPORT SsaveData(STRING path):= OUTPUT(DATASET('~work::'+path+'.tmp',Types.MarRecord,FLAT), ,'~work::'+path+'.out', OVERWRITE);
+	EXPORT SsaveData(STRING path):= OUTPUT(DATASET('~fastread::'+path+'.tmp',Types.MarRecord,FLAT), ,'~fastread::'+path+'.out', OVERWRITE);
 	
-	EXPORT Types.MarRecord loadData(STRING path):= DATASET('~work::'+path+'.out', Types.MarRecord, FLAT);
+	EXPORT Types.MarRecord loadData(STRING path):= DATASET('~fastread::'+path+'.out', Types.MarRecord, FLAT);
 
 	EXPORT Types.MarRecord transData(STRING path):= FUNCTION
 		Types.MarRecord getNew(Types.CsvRecord old,INTEGER c) := TRANSFORM
@@ -25,7 +26,7 @@ EXPORT Body := MODULE
 		//act1 := DATASET('~work::'+path+'.out', Types.MarRecord, FLAT);
 		//act2 := PROJECT(DATASET('~initial::'+path+'.csv',Types.CsvRecord,CSV), getNew(LEFT,COUNTER));
 		//newData := IF (STD.File.FileExists('~work::'+path+'.out'),act1,act2);
-		newData := PROJECT(DATASET('~initial::'+path+'.csv',Types.CsvRecord,CSV), getNew(LEFT,COUNTER));		
+		newData := PROJECT(DATASET('~fastread::'+path+'.csv',Types.CsvRecord,CSV), getNew(LEFT,COUNTER));		
 		RETURN newData;
 	END;
 	
@@ -56,13 +57,13 @@ EXPORT Body := MODULE
 		RETURN justten;
 	END;
 	
-	EXPORT Types.ScoreRecord certainSample(DATASET(Types.MarRecord) corpus):= FUNCTION
+	EXPORT Types.ScoreRecord certainSample(DATASET(Types.MarRecord) corpus, STRING path):= FUNCTION
 		ML.Types.DiscreteField dependent(Types.MarRecord corpus,INTEGER4 code) := TRANSFORM
 			SELF.id := corpus.id;
 			SELF.number := 1;
 			SELF.value := code;
 		END;
-		csrmat := DATASET('~feature::feature.csv',ML.Types.NumericField,CSV);
+		csrmat := DATASET('~fastread::'+path+'.feature',ML.Types.NumericField,FLAT);
 		poses := join(csrmat, corpus(code='yes'), LEFT.id=RIGHT.id, TRANSFORM(ML.Types.NumericField, SELF := LEFT) );
 		posesCode := PROJECT(corpus(code='yes'), dependent(LEFT,1));
 		negs := join(csrmat, corpus(code='no'), LEFT.id=RIGHT.id, TRANSFORM(ML.Types.NumericField, SELF := LEFT) );
@@ -76,9 +77,9 @@ EXPORT Body := MODULE
 		RETURN SORT(rt,score);		
 	END;
 
-	EXPORT Types.ScoreRecord present(DATASET(Types.MarRecord) corpus):= FUNCTION			
+	EXPORT Types.ScoreRecord present(DATASET(Types.MarRecord) corpus, STRING path):= FUNCTION			
 		//RETURN randomSample(corpus);
-		RETURN IF(COUNT(corpus(code='yes'))=0,randomSample(corpus),certainSample(corpus));
+		RETURN IF(COUNT(corpus(code='yes'))=0,randomSample(corpus),certainSample(corpus,path));
 	END;
 
 	
@@ -87,4 +88,27 @@ EXPORT Body := MODULE
               ,Types.Stat);
 	END;	
 	
+	EXPORT ML.Types.NumericField featurize(STRING file):= FUNCTION		
+		d := loadData(file);
+		Docs.Types.Raw getString(Types.MarRecord old) := TRANSFORM
+			SELF.ID := old.ID;
+			SELF.Txt := old.Title+old.Abstract;
+		END;
+		d1 := PROJECT(d,getString(LEFT));
+		d3 := Docs.Tokenize.Clean(d1);
+		d4 := Docs.Tokenize.Split(d3);
+		lex := Docs.Tokenize.Lexicon(d4);
+		o1 := Docs.Tokenize.ToO(d4,lex);
+		o2:=Docs.Trans(o1).WordBag;
+
+		ML.Types.NumericField toMatrix(Docs.Types.OWordElement old) := TRANSFORM
+			SELF.id := old.id;
+			SELF.number := old.word;
+			SELF.value := old.words_in_doc;
+		END;
+
+		RETURN PROJECT(o2,toMatrix(LEFT));
+	END;	
+	
+	EXPORT saveFeature(DATASET(ML.Types.NumericField) feature, STRING path):= OUTPUT(feature, ,'~fastread::'+path+'.feature',OVERWRITE);
 END;

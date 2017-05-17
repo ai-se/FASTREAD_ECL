@@ -30,7 +30,7 @@ class MAR(object):
             # self.loadfile()
             # self.preprocess()
             stat = self.trans()
-            self.save()
+            # self.save()
         return stat
 
 
