@@ -1,6 +1,6 @@
-What is FASTREAD?
+What is FASTREAD_ECL?
 -----
-FASTREAD is a tool to support primary study selection in systematic literature review.
+FASTREAD_ECL is a tool to support primary study selection in systematic literature review implemented on HPCC for massive scale-up.
 
 Latest Versions:
 
@@ -23,14 +23,24 @@ Cite as:
 Setting up FASTREAD
 -----
 
-1. Setting up Python:
+1. Setting up HPCC:
+  + Install HPCC [virtual machine](https://hpccsystems.com/download/virtual-machine-image)
+  + Install [HPCC Client Tools](https://hpccsystems.com/download/developer-tools/client-tools)
+    - add *C:\Program Files (x86)\HPCCSystems\xx.xx\clienttools\bin* (the installation path to ecl.exe) to your environment path.
+
+2. Setting up Python:
   + We use anaconda by continuum.io (see [Why?](https://www.continuum.io/why-anaconda))
     - We won't need the entire distribution. [Download](http://conda.pydata.org/miniconda.html) a Python 2.7 version & install a minimal version of anaconda.
   + Make sure you select add to PATH during install.
   + Next, run `setup.bat`. This will install all the dependencies needed to run the tool.
   + If the above does not work well. Remember you only need a Python 2.7 and three packages listed in `requirements.txt` installed.
 
-2. Running script:
+3. Getting dependencies:
+  + get ecl-ml from [github](https://github.com/hpcc-systems/ecl-ml)
+  + get [libsvm](https://www.csie.ntu.edu.tw/~cjlin/libsvm/)
+  + put ecl-ml and libsvm in the same directory alongside FASTREAD_ECL
+
+3. Running script:
   + Navigate to *src* and run `index.py`.
   + If all is well, you'll be greeted by this:
   ![](https://github.com/fastread/src/blob/master/tutorial/screenshots/run.png?raw=yes)
