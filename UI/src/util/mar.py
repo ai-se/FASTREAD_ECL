@@ -30,6 +30,9 @@ class MAR(object):
             # self.loadfile()
             # self.preprocess()
             stat = self.trans()
+            if stat == None:
+                self.publish_jobs()
+                stat = self.trans()
             # self.save()
         return stat
 
@@ -74,6 +77,13 @@ class MAR(object):
 
         return stat
 
+    def publish_jobs(self):
+        import subprocess
+        jobs_name = ["trans", "export", "label", "show", "ssave", "stat"]
+        for job in jobs_name:
+            command = "ecl publish thor ../../MAR/jobs/"+job+".ecl -I\"../../;../../../ecl-ml/\" --name="+job+" --activate --server=192.168.56.101:8010"
+            subprocess.check_output(command, shell=True)
+
     def trans(self):
         jobname = 'trans'
         url = "http://" + self.thor_ip + ":8002/WsEcl/submit/query/thor/" + jobname + "/json?"
@@ -84,7 +94,10 @@ class MAR(object):
         html = response.read()
 
         what = ujson.loads(html)
-        stat = what[jobname + "Response"]["Results"]["stat"]["Row"][0]
+        try:
+            stat = what[jobname + "Response"]["Results"]["stat"]["Row"][0]
+        except:
+            stat=None
 
         return stat
 
