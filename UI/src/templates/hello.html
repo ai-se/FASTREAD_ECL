@@ -9,10 +9,13 @@
 <body>
 
     <div class="learn">
-        <input type="file" id="myFile" onchange="handleFileSelect(this.files)"/>
-
+        <button onclick="files()" style="float:left"> Scan </button>
+        <select id="file_options" name="Select Data" style="float:right; width:200px; height: 22px" onchange="handleFileSelect(this)">
+            <option value="none"  selected>None</option>
+        </select>
         <br/>
-        <button onclick="train_send()" disabled> Next </button>
+        <br/>
+        <button onclick="train_send()" disabled style="float:left"> Next </button>
 
         <ol id="learn_result" style="overflow-y: scroll; height: 450px">
         </ol>

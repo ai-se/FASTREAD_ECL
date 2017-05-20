@@ -28,6 +28,12 @@ def load():
     stat=target.create(file)
     return jsonify({"hasLabel": True, "flag": True, "pos": stat['pos'],"done": int(stat['pos']) + int(stat['neg']), "total": stat['total']})
 
+@app.route('/files',methods=['GET'])
+def files():
+    global target
+    res=target.get_files()
+    return jsonify({"files": res})
+
 @app.route('/export',methods=['POST'])
 def export():
     try:

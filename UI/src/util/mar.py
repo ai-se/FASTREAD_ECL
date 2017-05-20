@@ -11,11 +11,21 @@ import time
 import urllib2
 import ujson
 import os
+import subprocess
 
 class MAR(object):
     def __init__(self):
         self.thor_ip = '192.168.56.101'
 
+    def get_files(self):
+        command = "dfuplus action=list name=fastread::*.csv server="+self.thor_ip+":8010"
+        output = subprocess.check_output(command, shell=True)
+        out = output.split('\r\n')
+        real_out=[]
+        if len(out)>1:
+            real_out=[o.split("fastread::")[1].split('.csv')[0] for o in out[1:] if o]
+
+        return real_out
 
     def create(self,filename):
         self.filename=filename
@@ -78,7 +88,7 @@ class MAR(object):
         return stat
 
     def publish_jobs(self):
-        import subprocess
+
         jobs_name = ["trans", "export", "label", "show", "ssave", "stat"]
         for job in jobs_name:
             command = "ecl publish thor ../../MAR/jobs/"+job+".ecl -I\"../../;../../../ecl-ml/\" --name="+job+" --activate --server=192.168.56.101:8010"

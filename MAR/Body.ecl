@@ -1,4 +1,5 @@
 ﻿IMPORT MAR.Types;
+IMPORT MAR;
 IMPORT STD;
 IMPORT ML;
 IMPORT ML.Docs AS Docs;
@@ -69,7 +70,7 @@ EXPORT Body := MODULE
 		negs := join(csrmat, corpus(code='no'), LEFT.id=RIGHT.id, TRANSFORM(ML.Types.NumericField, SELF := LEFT) );
 		negsCode := PROJECT(corpus(code='no'), dependent(LEFT,0));
 		und := join(csrmat, corpus(code='undetermined'), LEFT.id=RIGHT.id, TRANSFORM(ML.Types.NumericField, SELF := LEFT) );
-		model := ML.Classify.SVM();
+		model := MAR.Classify.SVM();
 		nl := model.LearnC(poses+negs,posesCode+negsCode);
 		rs := model.ClassifyC(und,nl);
 		justten := TOPN(rs,10,conf);

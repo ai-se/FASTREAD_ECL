@@ -5,7 +5,7 @@ file := '': STORED('file', FORMAT(SEQUENCE(1)));
 
 MAR.Types.MarRecord tmp := MAR.Body.transData(file);
 
-rs1:=OUTPUT(tmp, ,'~fastread::'+file+'.out');
+rs1:=OUTPUT(tmp, ,'~fastread::'+file+'.out',OVERWRITE);
 
 stat:= MAR.Body.get_stat(tmp);
 

@@ -1,14 +1,41 @@
-initialization();
+initialization() ;
 
+function files() {
+     var results=$.ajax({
+        type: "GET",
+        url: "/files",
+        async: false,
+//        data: { },
+//        success: load_receive
+    });
+    filenames= results.responseJSON.files;
+    var olnode=document.getElementById("file_options");
+    while (olnode.firstChild) {
+        olnode.removeChild(olnode.firstChild);
+    }
+    var newopt=document.createElement("option");
+    newopt.setAttribute("value","none");
+    newopt.innerHTML = "None";
+    newopt.selected=true;
+    olnode.appendChild(newopt);
+    for (var i = 0; i < filenames.length; ++i){
+        var newopt=document.createElement("option");
+        newopt.setAttribute("value",filenames[i]);
+        newopt.innerHTML = filenames[i];
+        olnode.appendChild(newopt);
+    }
+}
 
-function handleFileSelect(files) {
-    $.ajax({
-        type: "POST",
-        url: "/load",
-        async: true,
-        data: {file:files[0].name },
-        success: load_receive
-    });    
+function handleFileSelect(what) {
+    if(filenames && parseInt(what.selectedIndex)>0 ){
+        $.ajax({
+            type: "POST",
+            url: "/load",
+            async: true,
+            data: {file:filenames[parseInt(what.selectedIndex)-1] },
+            success: load_receive
+        });
+    }
 }
 
 function load_receive(response) {
@@ -47,6 +74,9 @@ function initialization(){
     changed=false;
     learn_result={};
     $("#myImage").removeAttr("src")
+
+
+
 }
 
 
