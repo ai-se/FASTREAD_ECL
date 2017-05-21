@@ -1,16 +1,10 @@
 from __future__ import print_function, division
-import pickle
 from pdb import set_trace
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 import csv
-from collections import Counter
-from sklearn import svm
-import matplotlib.pyplot as plt
-import time
 import urllib2
 import ujson
-import os
 import subprocess
 
 class MAR(object):
