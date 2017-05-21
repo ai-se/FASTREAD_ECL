@@ -82,5 +82,5 @@ Use FASTREAD_ECL
   
 Version Logs
 -----
-May 20, 2017. **v1.0.0** The very first, basic version is released.
+May 21, 2017. **v1.0.0** The very first, basic version is released.
 
