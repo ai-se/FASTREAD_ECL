@@ -18,10 +18,9 @@ Setting up FASTREAD
   + We use anaconda by continuum.io (see [Why?](https://www.continuum.io/why-anaconda))
     - We won't need the entire distribution. [Download](http://conda.pydata.org/miniconda.html) a Python 2.7 version & install a minimal version of anaconda.
   + Make sure you select add to PATH during install.
-  + Next, run `setup.bat`. This will install all the dependencies needed to run the tool.
-  + If the above does not work well. Remember you only need a Python 2.7 and three packages listed in `requirements.txt` installed.
 
 3. Getting dependencies:
+  + get flask package from anaconda: run *conda install flask* in your terminal/shell.
   + get ecl-ml from [github](https://github.com/hpcc-systems/ecl-ml)
   + get [libsvm](https://www.csie.ntu.edu.tw/~cjlin/libsvm/)
   + put ecl-ml and libsvm in the same directory alongside FASTREAD_ECL
