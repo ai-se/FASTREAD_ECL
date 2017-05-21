@@ -38,8 +38,16 @@ Use FASTREAD_ECL
   ![](https://github.com/ai-se/FASTREAD_ECL/blob/master/tutorials/data.png)
     - the 'label' column stores the TRUE label of each entry, if not applicable, leave it as blank or 'unknown'.
   + Remove the header (first row) of your data file.
-  + Upload it onto HPCC landing zone:
+  + Open ECL_Watch: *http://ecl_watch_ip::8010*
+  ![](https://github.com/ai-se/FASTREAD_ECL/blob/master/tutorials/watch.png?raw=yes)
+  + Upload your data file onto HPCC landing zone (**files** > **Landing Zones** > **Upload**):
+  ![](https://github.com/ai-se/FASTREAD_ECL/blob/master/tutorials/upload.png?raw=yes)
   + Spray it:
+    - Select uploaded file
+    - Click **Spray: Delimited**
+    - Change the **Target Scope** to *fastread::*
+    - Hit **Spray** at bottom right
+  ![](https://github.com/ai-se/FASTREAD_ECL/blob/master/tutorials/spray.png?raw=yes)
 
 3. Running script:
   + Navigate to *FASTREAD_ECL > UI > src* and run `index.py`.
