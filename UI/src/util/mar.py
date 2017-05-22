@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 import csv
 import urllib2
-import ujson
+from flask import json
 import subprocess
 
 class MAR(object):
@@ -76,7 +76,7 @@ class MAR(object):
         response = urllib2.urlopen(url)
         html = response.read()
 
-        what = ujson.loads(html)
+        what = json.loads(html)
         stat = what[jobname + "Response"]["Results"]["stat"]["Row"][0]
 
         return stat
@@ -97,7 +97,7 @@ class MAR(object):
         response = urllib2.urlopen(url)
         html = response.read()
 
-        what = ujson.loads(html)
+        what = json.loads(html)
         try:
             stat = what[jobname + "Response"]["Results"]["stat"]["Row"][0]
         except:
@@ -114,7 +114,7 @@ class MAR(object):
         response = urllib2.urlopen(url)
         html = response.read()
 
-        what = ujson.loads(html)
+        what = json.loads(html)
         records = what[jobname + "Response"]["Results"]["export"]["Row"]
 
         fields = ["title", "abstract", "year", "pdf", "label", "code","time"]
@@ -170,7 +170,7 @@ class MAR(object):
         response = urllib2.urlopen(url)
         html = response.read()
 
-        what = ujson.loads(html)
+        what = json.loads(html)
         records = what[jobname + "Response"]["Results"]["show"]["Row"]
 
         return records
@@ -190,7 +190,7 @@ class MAR(object):
         response = urllib2.urlopen(url)
         html = response.read()
 
-        what = ujson.loads(html)
+        what = json.loads(html)
         stat = what[jobname + "Response"]["Results"]["stat"]["Row"][0]
 
         return stat
@@ -205,7 +205,7 @@ class MAR(object):
 
         response = urllib2.urlopen(url)
         html = response.read()
-        what = ujson.loads(html)
+        what = json.loads(html)
 
 
 

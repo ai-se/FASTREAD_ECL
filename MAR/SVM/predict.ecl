@@ -1,6 +1,6 @@
 // Produce a data set of predictions for each model
-IMPORT ML.SVM;
-IMPORT ML.SVM.LibSVM;
+IMPORT MAR.SVM;
+IMPORT MAR.SVM.LibSVM;
 // aliases
 Model := SVM.Types.Model;
 SVM_Model := LibSVM.Types.ECL_LibSVM_Model;
@@ -79,7 +79,7 @@ EXPORT Predict(DATASET(Model) models, DATASET(SVM_Instance) d) := MODULE
   END;
   EXPORT Pred_Prob_Est := JOIN(d, svm_mdls, TRUE, p_pest(LEFT, RIGHT), ALL);
 	
-	// Prediction and probabilities for ONE class.  Probability estimates empty if not supported.
+  // Prediction and probabilities for ONE class.  Probability estimates empty if not supported.
   SVM_Pred_Prob_One p_pone(SVM_Instance inst, Work1 m) := TRANSFORM
     x_nodes := PROJECT(inst.x,cvtNode(LEFT))
              & DATASET([{-1,0.0}], LibSVM_Node);
