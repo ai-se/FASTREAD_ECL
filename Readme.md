@@ -38,6 +38,7 @@ Use FASTREAD_ECL
   ![](https://github.com/ai-se/FASTREAD_ECL/blob/master/tutorials/data.png)
     - the 'label' column stores the TRUE label of each entry, if not applicable, leave it as blank or 'unknown'.
   + Remove the header (first row) of your data file.
+  + There are some example data files in *FASTREAD_ECL > UI > workspace > data*
   + Open ECL_Watch: *http://ecl_watch_ip::8010*
   ![](https://github.com/ai-se/FASTREAD_ECL/blob/master/tutorials/watch.png?raw=yes)
   + Upload your data file onto HPCC landing zone (**files** > **Landing Zones** > **Upload**):
