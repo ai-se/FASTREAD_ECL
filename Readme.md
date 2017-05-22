@@ -22,7 +22,7 @@ Setting up FASTREAD
 3. Getting dependencies:
   + get flask package from anaconda: run *conda install flask* in your terminal/shell.
   + get ecl-ml from [github](https://github.com/hpcc-systems/ecl-ml)
-  + get [libsvm](https://www.csie.ntu.edu.tw/~cjlin/libsvm/)
+  + get [libsvm](https://github.com/cjlin1/libsvm)
   + put ecl-ml and libsvm in the same directory alongside FASTREAD_ECL: ![](https://github.com/ai-se/FASTREAD_ECL/blob/master/tutorials/files.png?raw=yes)
 
 
