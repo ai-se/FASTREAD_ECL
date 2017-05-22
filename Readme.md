@@ -31,7 +31,7 @@ Use FASTREAD_ECL
 -----
   
 1. Running HPCC in virtual box:
-  + follow the instruction [here](https://hpccsystems.com/download/virtual-machine-image)
+  + follow the instruction [here](http://cdn.hpccsystems.com/releases/CE-Candidate-6.2.14/docs/RunningHPCCinaVirtualMachine-6.2.14-1.pdf)
   
 2. Get data ready:
   + Prepare a csv file like this:
