@@ -20,9 +20,9 @@ Setting up FASTREAD
   + Make sure you select add to PATH during install.
 
 3. Getting dependencies:
-  + get flask package from anaconda: run *conda install flask* in your terminal/shell.
+  + get **flask** package from anaconda: run *conda install flask* in your terminal/shell.
   + get ecl-ml from [github](https://github.com/hpcc-systems/ecl-ml)
-  + get [libsvm](https://www.csie.ntu.edu.tw/~cjlin/libsvm/)
+  + get [libsvm](https://github.com/cjlin1/libsvm)
   + put ecl-ml and libsvm in the same directory alongside FASTREAD_ECL: ![](https://github.com/ai-se/FASTREAD_ECL/blob/master/tutorials/files.png?raw=yes)
 
 
@@ -31,13 +31,14 @@ Use FASTREAD_ECL
 -----
   
 1. Running HPCC in virtual box:
-  + follow the instruction [here](https://hpccsystems.com/download/virtual-machine-image)
+  + follow the instruction [here](http://cdn.hpccsystems.com/releases/CE-Candidate-6.2.14/docs/RunningHPCCinaVirtualMachine-6.2.14-1.pdf)
   
 2. Get data ready:
   + Prepare a csv file like this:
   ![](https://github.com/ai-se/FASTREAD_ECL/blob/master/tutorials/data.png)
     - the 'label' column stores the TRUE label of each entry, if not applicable, leave it as blank or 'unknown'.
   + Remove the header (first row) of your data file.
+  + There are some example data files in *FASTREAD_ECL > UI > workspace > data*
   + Open ECL_Watch: *http://ecl_watch_ip::8010*
   ![](https://github.com/ai-se/FASTREAD_ECL/blob/master/tutorials/watch.png?raw=yes)
   + Upload your data file onto HPCC landing zone (**files** > **Landing Zones** > **Upload**):
