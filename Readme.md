@@ -23,6 +23,8 @@ Setting up FASTREAD
   + get **flask** package from anaconda: run *conda install flask* in your terminal/shell.
   + get ecl-ml from [github](https://github.com/hpcc-systems/ecl-ml)
   + install [libsvm](https://github.com/cjlin1/libsvm) development package on your HPCC nodes: ECLAGENT, THOR, THORMASTER, ECLCCSERVER.
+    - for the virtual box case, just run *sudo apt-get install libsvm-dev* on your vitual machine
+    - for the case of multiple nodes, every node should be installed with libsvm development package
   + put ecl-ml in the same directory alongside FASTREAD_ECL: ![](https://github.com/ai-se/FASTREAD_ECL/blob/master/tutorials/files.png?raw=yes)
 
 
