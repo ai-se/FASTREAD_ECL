@@ -77,7 +77,7 @@ Use FASTREAD_ECL
 7. Export csv:
   + Click **Export** button will generate a csv file with your coding in *FASTREAD_ECL > UI > workspace > coded*.
 
-6. Restart:
+8. Restart:
   + Click **Restart** button will give you a fresh start and loose all your previous effort on the current data.
   
  
