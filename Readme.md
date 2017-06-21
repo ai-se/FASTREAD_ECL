@@ -20,7 +20,7 @@ Setting up FASTREAD
   + Make sure you select add to PATH during install.
 
 3. Getting dependencies:
-  + get **flask** package from anaconda: run *conda install flask* in your terminal/shell.
+  + get **flask** package from anaconda: run `conda install flask` in your terminal/shell.
   + get ecl-ml from [github](https://github.com/hpcc-systems/ecl-ml)
   + install [libsvm](https://github.com/cjlin1/libsvm) development package on your HPCC nodes: ECLAGENT, THOR, THORMASTER, ECLCCSERVER.
     - for the virtual box case, just run *sudo apt-get install libsvm-dev* on your vitual machine
